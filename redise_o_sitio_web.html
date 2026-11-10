@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asociación de Hoteles y Moteles del Estado de Oaxaca A.C.</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Phosphor Icons CDN -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <!-- Google Fonts: Plus Jakarta Sans & Playfair Display -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        sage: {
+                            50: '#f4f6f4',
+                            100: '#e3e8e3',
+                            200: '#c5d1c5',
+                            500: '#8ba48b',
+                            700: '#566e56',
+                            800: '#465846',
+                            900: '#2d372d',
+                        },
+                        sand: {
+                            50: '#fbf9f5',
+                            100: '#f5f0e6',
+                            200: '#e8dbca',
+                            300: '#d7c2a7',
+                            800: '#5a4c3a',
+                        },
+                        graphite: '#1c1e1c',
+                        cream: '#FAF8F5'
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'serif'],
+                    },
+                    borderRadius: {
+                        '4xl': '2.5rem',
+                        '5xl': '3rem',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #ECEAE4;
+            color: #1c1e1c;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Ambient background curves inspired by the reference design */
+        .ambient-bg {
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(139, 164, 139, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 90% 60%, rgba(215, 194, 167, 0.25) 0%, transparent 50%),
+                radial-gradient(circle at 50% 90%, rgba(70, 88, 70, 0.12) 0%, transparent 45%);
+        }
+
+        .curved-card {
+            border-radius: 2.25rem;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #ECEAE4;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #8ba48b;
+            border-radius: 999px;
+        }
+    </style>
+</head>
+<body class="ambient-bg min-h-screen flex flex-col justify-between selection:bg-sage-500 selection:text-white">
+
+    <!-- TOP ANNOUNCEMENT BAR -->
+    <div class="bg-sage-900 text-sand-100 text-xs py-2 px-4 text-center font-medium tracking-wide">
+        <span class="bg-sage-700/60 px-2 py-0.5 rounded-full text-[10px] mr-2 text-sand-200 uppercase font-bold">Oficial</span>
+        Representando la excelencia de la hospitalidad en Oaxaca de Juárez, Valles Centrales y Costa.
+    </div>
+
+    <!-- MAIN CONTAINER WITH FLOATING DESIGN ASPECT -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 pb-12 w-full space-y-8">
+
+        <!-- HEADER / NAVIGATION (Pill style header from reference) -->
+        <header class="bg-white/90 backdrop-blur-md rounded-full px-6 py-3.5 shadow-sm border border-black/5 flex items-center justify-between sticky top-4 z-50 transition-all duration-300">
+            <!-- Brand Logo -->
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 rounded-full bg-sage-800 text-sand-100 flex items-center justify-center font-serif text-xl font-bold shadow-sm group-hover:scale-105 transition-transform">
+                    O
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-serif font-bold text-base leading-tight tracking-tight text-sage-900">AHMO</span>
+                    <span class="text-[10px] text-gray-500 uppercase tracking-widest font-semibold">Hoteles de Oaxaca</span>
+                </div>
+            </a>
+
+            <!-- Nav Items -->
+            <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-gray-700">
+                <a href="#inicio" class="hover:text-sage-700 transition-colors">Inicio</a>
+                <a href="#nosotros" class="hover:text-sage-700 transition-colors">Nosotros</a>
+                <a href="#directorio" class="hover:text-sage-700 transition-colors">Directorio</a>
+                <a href="#experiencias" class="hover:text-sage-700 transition-colors">Experiencias</a>
+                <a href="#socios" class="hover:text-sage-700 transition-colors">Afiliación</a>
+            </nav>
+
+            <!-- Actions -->
+            <div class="flex items-center gap-3">
+                <button onclick="openModal('contacto')" class="hidden sm:inline-flex items-center gap-2 bg-sage-900 hover:bg-sage-800 text-white text-xs font-semibold px-5 py-2.5 rounded-full transition-all shadow-sm hover:shadow">
+                    <i class="ph ph-envelope-simple text-sm"></i>
+                    Contacto
+                </button>
+                <button onclick="openModal('afiliacion')" class="bg-sand-200 hover:bg-sand-300 text-sage-900 text-xs font-bold px-5 py-2.5 rounded-full transition-all border border-sand-300">
+                    Únete como Socio
+                </button>
+                <button class="md:hidden text-2xl text-sage-900 ml-1" onclick="toggleMobileNav()">
+                    <i class="ph ph-list" id="menu-icon"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- MOBILE MENU OVERLAY -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white rounded-3xl p-6 shadow-xl border border-gray-100 flex-col gap-4 text-center text-sm font-medium">
+            <a href="#inicio" onclick="toggleMobileNav()" class="py-2 hover:text-sage-700 border-b border-gray-100">Inicio</a>
+            <a href="#nosotros" onclick="toggleMobileNav()" class="py-2 hover:text-sage-700 border-b border-gray-100">Nosotros</a>
+            <a href="#directorio" onclick="toggleMobileNav()" class="py-2 hover:text-sage-700 border-b border-gray-100">Directorio de Hoteles</a>
+            <a href="#experiencias" onclick="toggleMobileNav()" class="py-2 hover:text-sage-700 border-b border-gray-100">Experiencias</a>
+            <a href="#socios" onclick="toggleMobileNav()" class="py-2 hover:text-sage-700">Beneficios Socios</a>
+        </div>
+
+        <!-- HERO SECTION (Identical structure to reference image layout) -->
+        <section id="inicio" class="bg-white curved-card p-6 sm:p-10 md:p-12 shadow-sm border border-black/5 relative overflow-hidden">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                <!-- Hero Content Left -->
+                <div class="lg:col-span-6 space-y-6">
+                    <div class="inline-flex items-center gap-2 bg-sand-100 border border-sand-200 px-3.5 py-1.5 rounded-full text-xs font-semibold text-sage-900">
+                        <i class="ph ph-sparkle text-sage-700"></i>
+                        Asociación Hotelera Oficial de Oaxaca
+                    </div>
+                    
+                    <h1 class="font-serif text-4xl sm:text-5xl md:text-6xl font-bold text-graphite tracking-tight leading-[1.1]">
+                        Hospitalidad, Tradición & Magia Oaxaqueña
+                    </h1>
+
+                    <p class="text-gray-600 text-sm sm:text-base leading-relaxed max-w-xl">
+                        Agrupamos y respaldamos a los hospedajes más prestigiosos del estado de Oaxaca. Garantizamos estándares supremos de confort, cultura y calidez humana en cada estancia.
+                    </p>
+
+                    <div class="flex flex-wrap items-center gap-4 pt-2">
+                        <a href="#directorio" class="bg-sage-900 hover:bg-sage-800 text-white font-medium text-sm px-7 py-3.5 rounded-full transition-all shadow-md hover:shadow-lg inline-flex items-center gap-2">
+                            Explorar Hoteles
+                            <i class="ph ph-arrow-up-right text-base"></i>
+                        </a>
+                        <button onclick="openModal('contacto')" class="bg-sand-100 hover:bg-sand-200 text-sage-900 font-semibold text-sm px-6 py-3.5 rounded-full transition-all border border-sand-200">
+                            Atención al Turista
+                        </button>
+                    </div>
+
+                    <!-- Quick Metrics -->
+                    <div class="grid grid-cols-3 gap-4 pt-6 border-t border-gray-100">
+                        <div>
+                            <span class="block text-2xl font-serif font-bold text-sage-900">120+</span>
+                            <span class="text-xs text-gray-500 font-medium">Hoteles Afiliados</span>
+                        </div>
+                        <div>
+                            <span class="block text-2xl font-serif font-bold text-sage-900">4.9★</span>
+                            <span class="text-xs text-gray-500 font-medium">Satisfacción</span>
+                        </div>
+                        <div>
+                            <span class="block text-2xl font-serif font-bold text-sage-900">40+</span>
+                            <span class="text-xs text-gray-500 font-medium">Años de Historia</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hero Image Right (Very rounded container) -->
+                <div class="lg:col-span-6 relative">
+                    <div class="relative w-full h-[380px] sm:h-[480px] rounded-3xl sm:rounded-[2.5rem] overflow-hidden shadow-md">
+                        <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1200&q=80" 
+                             alt="Hotel Boutique Oaxaca Patio" 
+                             class="w-full h-full object-cover transform hover:scale-105 transition-transform duration-700"
+                             onerror="this.src='https://placehold.co/800x600/8ba48b/fff?text=Hotel+Oaxaca'">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
+                        
+                        <!-- Floating Badge inside photo -->
+                        <div class="absolute bottom-6 left-6 right-6 bg-white/90 backdrop-blur-md p-4 rounded-2xl flex items-center justify-between border border-white/20">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-full bg-sand-200 flex items-center justify-center text-sage-900">
+                                    <i class="ph ph-map-pin text-xl"></i>
+                                </div>
+                                <div>
+                                    <p class="text-xs font-bold text-graphite">Oaxaca de Juárez</p>
+                                    <p class="text-[11px] text-gray-500">Patrimonio Cultural de la Humanidad</p>
+                                </div>
+                            </div>
+                            <span class="bg-sage-100 text-sage-800 text-[10px] font-bold px-2.5 py-1 rounded-full uppercase">Destino Top</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CATEGORIES / SERVICES QUICK BAR -->
+        <div class="flex items-center justify-between overflow-x-auto gap-3 py-2 scrollbar-none">
+            <button onclick="filterHotels('todos')" class="filter-btn active bg-sage-900 text-white px-6 py-2.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all shadow-sm">
+                Todos los Destinos
+            </button>
+            <button onclick="filterHotels('centro')" class="filter-btn bg-white hover:bg-sand-100 text-gray-700 px-6 py-2.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all border border-gray-200">
+                Centro Histórico
+            </button>
+            <button onclick="filterHotels('boutique')" class="filter-btn bg-white hover:bg-sand-100 text-gray-700 px-6 py-2.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all border border-gray-200">
+                Hoteles Boutique & Lujo
+            </button>
+            <button onclick="filterHotels('costa')" class="filter-btn bg-white hover:bg-sand-100 text-gray-700 px-6 py-2.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all border border-gray-200">
+                Costa (Puerto Escondido / Huatulco)
+            </button>
+            <button onclick="filterHotels('valles')" class="filter-btn bg-white hover:bg-sand-100 text-gray-700 px-6 py-2.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all border border-gray-200">
+                Valles Centrales
+            </button>
+        </div>
+
+        <!-- FEATURED BANNER SECTION (Big Sage Green Rounded Banner from Reference) -->
+        <section class="bg-sage-900 curved-card p-8 sm:p-12 text-white relative overflow-hidden shadow-lg">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
+                <div class="lg:col-span-7 space-y-5">
+                    <span class="bg-sage-700/60 text-sand-200 text-xs font-bold px-4 py-1.5 rounded-full inline-block uppercase tracking-wider">
+                        Garantía AHMO
+                    </span>
+                    <h2 class="font-serif text-3xl sm:text-4xl md:text-5xl font-bold leading-tight">
+                        ¡Vive la auténtica riqueza cultural con reservación segura!
+                    </h2>
+                    <p class="text-sand-100/80 text-sm sm:text-base leading-relaxed max-w-xl">
+                        Al hospedarte en hoteles agremiados a la Asociación de Hoteles y Moteles del Estado de Oaxaca, obtienes protocolos certificados de calidad, atención personalizada y tarifas directas garantizadas sin intermediarios.
+                    </p>
+                    <div class="pt-2 flex flex-wrap gap-4">
+                        <a href="#directorio" class="bg-sand-200 hover:bg-sand-300 text-sage-900 font-bold text-xs px-6 py-3 rounded-full transition-all inline-flex items-center gap-2">
+                            Ver Directorio Certificado
+                            <i class="ph ph-arrow-right"></i>
+                        </a>
+                        <button onclick="openModal('afiliacion')" class="bg-transparent hover:bg-sage-800 text-sand-100 font-medium text-xs px-6 py-3 rounded-full border border-sand-200/30 transition-all">
+                            Información para Hoteleros
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="lg:col-span-5">
+                    <div class="relative rounded-3xl overflow-hidden border-4 border-white/10 shadow-2xl h-64 sm:h-80">
+                        <img src="https://images.unsplash.com/photo-1544644181-1484b3fdfc62?auto=format&fit=crop&w=800&q=80" 
+                             alt="Gastronomia y Arquitectura Oaxaquena" 
+                             class="w-full h-full object-cover"
+                             onerror="this.src='https://placehold.co/600x400/566e56/fff?text=Experiencia+Oaxaca'">
+                        <div class="absolute inset-0 bg-sage-900/20"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Background subtle pattern -->
+            <div class="absolute -right-20 -bottom-20 w-96 h-96 rounded-full bg-sage-800/40 pointer-events-none"></div>
+        </section>
+
+        <!-- DIRECTORY SECTION (Grid with rounded cards & category avatars) -->
+        <section id="directorio" class="space-y-6 pt-4">
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+                <div>
+                    <span class="text-xs font-bold text-sage-700 uppercase tracking-widest">Hospedajes Certificados</span>
+                    <h2 class="font-serif text-3xl font-bold text-graphite">Directorio Oficial de Hoteles</h2>
+                </div>
+                <p class="text-xs text-gray-500 max-w-xs">
+                    Selección verificada con cumplimiento de estándares de calidad turística del estado.
+                </p>
+            </div>
+
+            <!-- HOTEL CARDS GRID -->
+            <div id="hotels-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                
+                <!-- Card 1 -->
+                <div class="hotel-card bg-white rounded-3xl p-4 border border-black/5 shadow-sm hover:shadow-md transition-all group flex flex-col justify-between" data-category="boutique">
+                    <div class="relative h-48 rounded-2xl overflow-hidden mb-4">
+                        <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=600&q=80" alt="Hotel Quinta Real Oaxaca" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <span class="absolute top-3 left-3 bg-white/90 backdrop-blur-sm text-sage-900 text-[10px] font-bold px-3 py-1 rounded-full uppercase">Boutique</span>
+                    </div>
+                    <div>
+                        <div class="flex justify-between items-start mb-1">
+                            <h3 class="font-serif font-bold text-lg text-graphite group-hover:text-sage-700 transition-colors">Quinta Real Oaxaca</h3>
+                            <span class="text-xs font-bold text-sage-800 flex items-center gap-1"><i class="ph ph-star-fill text-amber-500"></i> 4.9</span>
+                        </div>
+                        <p class="text-xs text-gray-500 flex items-center gap-1 mb-3">
+                            <i class="ph ph-map-pin text-sage-700"></i> Ex-Convento de Santa Catalina, Centro
+                        </p>
+                        <p class="text-xs text-gray-600 line-clamp-2 mb-4">
+                            Iconico hotel de gran lujo asentado en un monumento histórico restaurado del siglo XVI.
+                        </p>
+                    </div>
+                    <div class="pt-3 border-t border-gray-100 flex items-center justify-between">
+                        <span class="text-xs font-semibold text-sage-900">Desde $3,800 MXN</span>
+                        <button onclick="openHotelDetail('Quinta Real Oaxaca', 'Ex-Convento de Santa Catalina, Centro Histórico', '5 estrellas, Piscina, Restaurante de Alta Cocina, Salón de Eventos', '555-0192')" class="bg-sand-100 hover:bg-sand-200 text-sage-900 p-2 rounded-full transition-colors">
+                            <i class="ph ph-arrow-right text-base"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="hotel-card bg-white rounded-3xl p-4 border border-black/5 shadow-sm hover:shadow-md transition-all group flex flex-col justify-between" data-category="centro">
+                    <div class="relative h-48 rounded-2xl overflow-hidden mb-4">
+                        <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=600&q=80" alt="Hotel Victoria Oaxaca" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <span class="absolute top-3 left-3 bg-white/90 backdrop-blur-sm text-sage-900 text-[10px] font-bold px-3 py-1 rounded-full uppercase">Centro / Vista</span>
+                    </div>
+                    <div>
+                        <div class="flex justify-between items-start mb-1">
+                            <h3 class="font-serif font-bold text-lg text-graphite group-hover:text-sage-700 transition-colors">Hotel Victoria Oaxaca</h3>
+                            <span class="text-xs font-bold text-sage-800 flex items-center gap-1"><i class="ph ph-star-fill text-amber-500"></i> 4.7</span>
+                        </div>
+                        <p class="text-xs text-gray-500 flex items-center gap-1 mb-3">
+                            <i class="ph ph-map-pin text-sage-700"></i> Templo del Fortín, Oaxaca
+                        </p>
+                        <p class="text-xs text-gray-600 line-clamp-2 mb-4">
+                            Ubicado en la ladera del cerro del Fortín, ofrece las mejores vistas panorámicas de la ciudad colonial.
+                        </p>
+                    </div>
+                    <div class="pt-3 border-t border-gray-100 flex items-center justify-between">
+                        <span class="text-xs font-semibold text-sage-900">Desde $2,100 MXN</span>
+                        <button onclick="openHotelDetail('Hotel Victoria Oaxaca', 'Lomas del Fortín, Centro', 'Piscina Panorámica, Jardines, Restaurante, Estacionamiento', '951-515-2633')" class="bg-sand-100 hover:bg-sand-200 text-sage-900 p-2 rounded-full transition-colors">
+                            <i class="ph ph-arrow-right text-base"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="hotel-card bg-white rounded-3xl p-4 border border-black/5 shadow-sm hover:shadow-md transition-all group flex flex-col justify-between" data-category="costa">
+                    <div class="relative h-48 rounded-2xl overflow-hidden mb-4">
+                        <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=600&q=80" alt="Resort Costa Zicatela" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <span class="absolute top-3 left-3 bg-white/90 backdrop-blur-sm text-sage-900 text-[10px] font-bold px-3 py-1 rounded-full uppercase">Costa</span>
+                    </div>
+                    <div>
+                        <div class="flex justify-between items-start mb-1">
+                            <h3 class="font-serif font-bold text-lg text-graphite group-hover:text-sage-700 transition-colors">Zicatela Beach Resort</h3>
+                            <span class="text-xs font-bold text-sage-800 flex items-center gap-1"><i class="ph ph-star-fill text-amber-500"></i> 4.8</span>
+                        </div>
+                        <p class="text-xs text-gray-500 flex items-center gap-1 mb-3">
+                            <i class="ph ph-map-pin text-sage-700"></i> Puerto Escondido, Oaxaca
+                        </p>
+                        <p class="text-xs text-gray-600 line-clamp-2 mb-4">
+                            Frente a las famosas olas de Zicatela, con albercas infinitas, spa y cocina de mar fresca.
+                        </p>
+                    </div>
+                    <div class="pt-3 border-t border-gray-100 flex items-center justify-between">
+                        <span class="text-xs font-semibold text-sage-900">Desde $2,950 MXN</span>
+                        <button onclick="openHotelDetail('Zicatela Beach Resort', 'Av. del Morro, Puerto Escondido', 'Frente a playa, Spa, Surf Club, Restaurante', '954-582-0110')" class="bg-sand-100 hover:bg-sand-200 text-sage-900 p-2 rounded-full transition-colors">
+                            <i class="ph ph-arrow-right text-base"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="hotel-card bg-white rounded-3xl p-4 border border-black/5 shadow-sm hover:shadow-md transition-all group flex flex-col justify-between" data-category="valles">
+                    <div class="relative h-48 rounded-2xl overflow-hidden mb-4">
+                        <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=600&q=80" alt="Hacienda Mitla Valles" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <span class="absolute top-3 left-3 bg-white/90 backdrop-blur-sm text-sage-900 text-[10px] font-bold px-3 py-1 rounded-full uppercase">Valles Centrales</span>
+                    </div>
+                    <div>
+                        <div class="flex justify-between items-start mb-1">
+                            <h3 class="font-serif font-bold text-lg text-graphite group-hover:text-sage-700 transition-colors">Hacienda Valle Mezcal</h3>
+                            <span class="text-xs font-bold text-sage-800 flex items-center gap-1"><i class="ph ph-star-fill text-amber-500"></i> 4.9</span>
+                        </div>
+                        <p class="text-xs text-gray-500 flex items-center gap-1 mb-3">
+                            <i class="ph ph-map-pin text-sage-700"></i> Tlacolula / Ruta del Mezcal
+                        </p>
+                        <p class="text-xs text-gray-600 line-clamp-2 mb-4">
+                            Experiencia agave y relajación rodeada de campos de maguey y tradición artesanal.
+                        </p>
+                    </div>
+                    <div class="pt-3 border-t border-gray-100 flex items-center justify-between">
+                        <span class="text-xs font-semibold text-sage-900">Desde $2,600 MXN</span>
+                        <button onclick="openHotelDetail('Hacienda Valle Mezcal', 'Ruta del Mezcal, Tlacolula', 'Cata de mezcal, Recorridos, Cabañas de Lujo, Spa', '951-562-8811')" class="bg-sand-100 hover:bg-sand-200 text-sage-900 p-2 rounded-full transition-colors">
+                            <i class="ph ph-arrow-right text-base"></i>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SERVICES & BENEFITS (Inspired by middle sections of reference layout) -->
+        <section id="nosotros" class="bg-white curved-card p-8 sm:p-10 border border-black/5 shadow-sm space-y-8">
+            <div class="text-center max-w-2xl mx-auto space-y-3">
+                <span class="bg-sand-100 text-sage-900 text-xs font-bold px-3.5 py-1.5 rounded-full uppercase">Nuestra Misión</span>
+                <h2 class="font-serif text-3xl sm:text-4xl font-bold text-graphite">Impulsando el Turismo y la Excelencia en Oaxaca</h2>
+                <p class="text-xs sm:text-sm text-gray-600">
+                    Somos la entidad representativa del sector hotelero oaxaqueño. Trabajamos unidos para garantizar hospitalidad segura, ética y memorable.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-sand-50 p-6 rounded-3xl border border-sand-200 space-y-3">
+                    <div class="w-12 h-12 rounded-2xl bg-sage-800 text-white flex items-center justify-center text-2xl">
+                        <i class="ph ph-shield-check"></i>
+                    </div>
+                    <h3 class="font-serif font-bold text-lg text-graphite">Certificación de Calidad</h3>
+                    <p class="text-xs text-gray-600 leading-relaxed">
+                        Validación continua en normas de higiene, seguridad, sustentabilidad ambiental y servicio al huésped en todos los socios.
+                    </p>
+                </div>
+
+                <div class="bg-sand-50 p-6 rounded-3xl border border-sand-200 space-y-3">
+                    <div class="w-12 h-12 rounded-2xl bg-sage-800 text-white flex items-center justify-center text-2xl">
+                        <i class="ph ph-users-three"></i>
+                    </div>
+                    <h3 class="font-serif font-bold text-lg text-graphite">Representación Gremial</h3>
+                    <p class="text-xs text-gray-600 leading-relaxed">
+                        Defendemos e impulsamos los intereses del sector ante autoridades locales, nacionales e internacionales.
+                    </p>
+                </div>
+
+                <div class="bg-sand-50 p-6 rounded-3xl border border-sand-200 space-y-3">
+                    <div class="w-12 h-12 rounded-2xl bg-sage-800 text-white flex items-center justify-center text-2xl">
+                        <i class="ph ph-chalkboard-teacher"></i>
+                    </div>
+                    <h3 class="font-serif font-bold text-lg text-graphite">Capacitación Continua</h3>
+                    <p class="text-xs text-gray-600 leading-relaxed">
+                        Programas permanentes de formación en idiomas, alta gastronomía, hotelería verde y hospitalidad de nivel internacional.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- HORIZONTAL CARDS / NEWS & EVENTS (Reference matching horizontal cards) -->
+        <section id="experiencias" class="space-y-6">
+            <div>
+                <span class="text-xs font-bold text-sage-700 uppercase tracking-widest">Cultura y Noticias</span>
+                <h2 class="font-serif text-3xl font-bold text-graphite">Eventos & Agenda Oaxaqueña</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Horizontal News Card 1 -->
+                <div class="bg-white rounded-3xl p-5 border border-black/5 shadow-sm flex flex-col sm:flex-row gap-5 items-center">
+                    <div class="w-full sm:w-44 h-40 rounded-2xl overflow-hidden shrink-0">
+                        <img src="https://images.unsplash.com/photo-1512813195386-6cf811ad3542?auto=format&fit=crop&w=500&q=80" alt="Guelaguetza" class="w-full h-full object-cover">
+                    </div>
+                    <div class="space-y-2">
+                        <span class="bg-sand-100 text-sage-900 text-[10px] font-bold px-2.5 py-1 rounded-full uppercase">Temporada Guelaguetza</span>
+                        <h3 class="font-serif font-bold text-base text-graphite">Preparativos y Reservaciones Anticipadas</h3>
+                        <p class="text-xs text-gray-600 line-clamp-2">
+                            La AHMO recomienda realizar reservaciones directamente con los hoteles afiliados para garantizar disponibilidad.
+                        </p>
+                        <button onclick="openModal('noticia1')" class="text-xs font-bold text-sage-800 flex items-center gap-1 hover:gap-2 transition-all">
+                            Leer más <i class="ph ph-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Horizontal News Card 2 -->
+                <div class="bg-white rounded-3xl p-5 border border-black/5 shadow-sm flex flex-col sm:flex-row gap-5 items-center">
+                    <div class="w-full sm:w-44 h-40 rounded-2xl overflow-hidden shrink-0">
+                        <img src="https://images.unsplash.com/photo-1516483638261-f4dbaf036963?auto=format&fit=crop&w=500&q=80" alt="Dia de Muertos Oaxaca" class="w-full h-full object-cover">
+                    </div>
+                    <div class="space-y-2">
+                        <span class="bg-sand-100 text-sage-900 text-[10px] font-bold px-2.5 py-1 rounded-full uppercase">Tradición</span>
+                        <h3 class="font-serif font-bold text-base text-graphite">Día de Muertos en el Valle de Oaxaca</h3>
+                        <p class="text-xs text-gray-600 line-clamp-2">
+                            Conoce las experiencias y altares especiales que los hoteles asociados ofrecerán a los visitantes.
+                        </p>
+                        <button onclick="openModal('noticia2')" class="text-xs font-bold text-sage-800 flex items-center gap-1 hover:gap-2 transition-all">
+                            Leer más <i class="ph ph-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SOCIOS / AFILIACION SECTION -->
+        <section id="socios" class="bg-sand-100 curved-card p-8 sm:p-12 border border-sand-200 flex flex-col md:flex-row items-center justify-between gap-8">
+            <div class="space-y-3 max-w-xl">
+                <span class="bg-white text-sage-900 text-xs font-bold px-3 py-1 rounded-full uppercase">Únete a la Red</span>
+                <h2 class="font-serif text-3xl font-bold text-graphite">¿Eres propietario o administrador de un Hotel o Motel en Oaxaca?</h2>
+                <p class="text-xs sm:text-sm text-gray-600">
+                    Forma parte de la asociación hotelera más sólida del estado. Accede a convenios comerciales, representación oficial, cursos de formación y difusión turística internacional.
+                </p>
+            </div>
+            <button onclick="openModal('afiliacion')" class="bg-sage-900 hover:bg-sage-800 text-white font-bold text-sm px-8 py-4 rounded-full transition-all shadow-md shrink-0">
+                Solicitar Afiliación de Hotel
+            </button>
+        </section>
+
+    </div>
+
+    <!-- FOOTER (Dark Graphite matching reference bottom panel) -->
+    <footer class="bg-graphite text-sand-100 pt-16 pb-12 rounded-t-[3rem] mt-12 border-t border-white/10">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 space-y-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <!-- Brand col -->
+                <div class="space-y-4 md:col-span-1">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-sage-700 text-sand-100 flex items-center justify-center font-serif text-xl font-bold">
+                            O
+                        </div>
+                        <span class="font-serif font-bold text-xl text-white">AHMO</span>
+                    </div>
+                    <p class="text-xs text-gray-400 leading-relaxed">
+                        Asociación de Hoteles y Moteles del Estado de Oaxaca A.C. Promoviendo la hospitalidad y la cultura de nuestra tierra desde hace más de 40 años.
+                    </p>
+                </div>
+
+                <!-- Navigation Links -->
+                <div>
+                    <h4 class="font-semibold text-sm text-white mb-4">Navegación</h4>
+                    <ul class="space-y-2 text-xs text-gray-400">
+                        <li><a href="#inicio" class="hover:text-sand-200 transition-colors">Inicio</a></li>
+                        <li><a href="#nosotros" class="hover:text-sand-200 transition-colors">Sobre la AHMO</a></li>
+                        <li><a href="#directorio" class="hover:text-sand-200 transition-colors">Directorio de Hoteles</a></li>
+                        <li><a href="#experiencias" class="hover:text-sand-200 transition-colors">Noticias y Eventos</a></li>
+                    </ul>
+                </div>
+
+                <!-- Regions -->
+                <div>
+                    <h4 class="font-semibold text-sm text-white mb-4">Regiones Atendidas</h4>
+                    <ul class="space-y-2 text-xs text-gray-400">
+                        <li>Oaxaca de Juárez (Centro)</li>
+                        <li>Valles Centrales</li>
+                        <li>Puerto Escondido</li>
+                        <li>Bahías de Huatulco</li>
+                        <li>Mixteca y Istmo</li>
+                    </ul>
+                </div>
+
+                <!-- Contact Info -->
+                <div class="space-y-3">
+                    <h4 class="font-semibold text-sm text-white mb-4">Contacto Oficial</h4>
+                    <p class="text-xs text-gray-400 flex items-center gap-2">
+                        <i class="ph ph-map-pin text-sage-500 text-base"></i>
+                        Centro Histórico, Oaxaca de Juárez, Oax.
+                    </p>
+                    <p class="text-xs text-gray-400 flex items-center gap-2">
+                        <i class="ph ph-envelope-simple text-sage-500 text-base"></i>
+                        contacto@asociaciondehotelesdeoaxaca.com
+                    </p>
+                    <p class="text-xs text-gray-400 flex items-center gap-2">
+                        <i class="ph ph-phone text-sage-500 text-base"></i>
+                        +52 (951) 516 0123
+                    </p>
+                    <!-- Social icons (Pill container) -->
+                    <div class="flex items-center gap-3 pt-2">
+                        <a href="#" class="w-8 h-8 rounded-full bg-white/10 hover:bg-sage-700 flex items-center justify-center text-white transition-colors"><i class="ph ph-facebook-logo"></i></a>
+                        <a href="#" class="w-8 h-8 rounded-full bg-white/10 hover:bg-sage-700 flex items-center justify-center text-white transition-colors"><i class="ph ph-instagram-logo"></i></a>
+                        <a href="#" class="w-8 h-8 rounded-full bg-white/10 hover:bg-sage-700 flex items-center justify-center text-white transition-colors"><i class="ph ph-twitter-logo"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Copyright -->
+            <div class="pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between text-[11px] text-gray-500 gap-4">
+                <p>© 2026 Asociación de Hoteles y Moteles del Estado de Oaxaca A.C. Todos los derechos reservados.</p>
+                <div class="flex gap-6">
+                    <a href="#" class="hover:text-gray-300">Aviso de Privacidad</a>
+                    <a href="#" class="hover:text-gray-300">Términos de Servicio</a>
+                    <a href="#" class="hover:text-gray-300">Portal para Socios</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- MODAL DIALOG FOR CONTACT & AFILIATION -->
+    <div id="custom-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 relative shadow-2xl space-y-4 border border-sand-200">
+            <button onclick="closeModal()" class="absolute top-5 right-5 w-9 h-9 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center text-gray-600 transition-colors">
+                <i class="ph ph-x text-lg"></i>
+            </button>
+
+            <div id="modal-content">
+                <!-- Content dynamically populated via JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // Toggle Mobile Nav
+        function toggleMobileNav() {
+            const menu = document.getElementById('mobile-menu');
+            const icon = document.getElementById('menu-icon');
+            if (menu.classList.contains('hidden')) {
+                menu.classList.remove('hidden');
+                menu.classList.add('flex');
+                icon.className = 'ph ph-x';
+            } else {
+                menu.classList.add('hidden');
+                menu.classList.remove('flex');
+                icon.className = 'ph ph-list';
+            }
+        }
+
+        // Hotel Directory Filter
+        function filterHotels(category) {
+            const cards = document.querySelectorAll('.hotel-card');
+            const buttons = document.querySelectorAll('.filter-btn');
+
+            buttons.forEach(btn => {
+                btn.classList.remove('bg-sage-900', 'text-white');
+                btn.classList.add('bg-white', 'text-gray-700');
+            });
+
+            event.currentTarget.classList.remove('bg-white', 'text-gray-700');
+            event.currentTarget.classList.add('bg-sage-900', 'text-white');
+
+            cards.forEach(card => {
+                if (category === 'todos' || card.dataset.category === category) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Modal Handlers
+        function openModal(type) {
+            const modal = document.getElementById('custom-modal');
+            const container = document.getElementById('modal-content');
+
+            if (type === 'contacto') {
+                container.innerHTML = `
+                    <span class="bg-sand-100 text-sage-900 text-[10px] font-bold px-3 py-1 rounded-full uppercase">Atención al Turista</span>
+                    <h3 class="font-serif text-2xl font-bold text-graphite mt-2">Contacto AHMO</h3>
+                    <p class="text-xs text-gray-500 mb-4">¿Dudas sobre hospedaje en Oaxaca? Escríbenos y te apoyaremos con información verificada.</p>
+                    <form onsubmit="handleFormSubmit(event)" class="space-y-3">
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-700 mb-1">Nombre Completo</label>
+                            <input type="text" required placeholder="Tu nombre" class="w-full text-xs px-4 py-3 rounded-full border border-gray-200 focus:outline-none focus:border-sage-700">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-700 mb-1">Correo Electrónico</label>
+                            <input type="email" required placeholder="correo@ejemplo.com" class="w-full text-xs px-4 py-3 rounded-full border border-gray-200 focus:outline-none focus:border-sage-700">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-700 mb-1">Mensaje</label>
+                            <textarea rows="3" required placeholder="¿En qué podemos ayudarte?" class="w-full text-xs p-4 rounded-2xl border border-gray-200 focus:outline-none focus:border-sage-700"></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-sage-900 text-white font-semibold text-xs py-3.5 rounded-full hover:bg-sage-800 transition-colors">
+                            Enviar Mensaje
+                        </button>
+                    </form>
+                `;
+            } else if (type === 'afiliacion') {
+                container.innerHTML = `
+                    <span class="bg-sand-100 text-sage-900 text-[10px] font-bold px-3 py-1 rounded-full uppercase">Socios Hoteleros</span>
+                    <h3 class="font-serif text-2xl font-bold text-graphite mt-2">Solicitud de Afiliación</h3>
+                    <p class="text-xs text-gray-500 mb-4">Ingresa los datos de tu establecimiento para iniciar tu proceso de integración a la AHMO.</p>
+                    <form onsubmit="handleFormSubmit(event)" class="space-y-3">
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-700 mb-1">Nombre del Hotel / Motel</label>
+                            <input type="text" required placeholder="Ej. Hotel Posada Real" class="w-full text-xs px-4 py-3 rounded-full border border-gray-200 focus:outline-none focus:border-sage-700">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-700 mb-1">Ubicación / Municipio</label>
+                            <input type="text" required placeholder="Ej. Oaxaca de Juárez / Huatulco" class="w-full text-xs px-4 py-3 rounded-full border border-gray-200 focus:outline-none focus:border-sage-700">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-700 mb-1">Número de Habitaciones</label>
+                            <input type="number" min="1" required placeholder="Ej. 25" class="w-full text-xs px-4 py-3 rounded-full border border-gray-200 focus:outline-none focus:border-sage-700">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-700 mb-1">Correo de Contacto</label>
+                            <input type="email" required placeholder="gerencia@hotel.com" class="w-full text-xs px-4 py-3 rounded-full border border-gray-200 focus:outline-none focus:border-sage-700">
+                        </div>
+                        <button type="submit" class="w-full bg-sage-900 text-white font-semibold text-xs py-3.5 rounded-full hover:bg-sage-800 transition-colors">
+                            Enviar Solicitud
+                        </button>
+                    </form>
+                `;
+            } else if (type === 'noticia1' || type === 'noticia2') {
+                container.innerHTML = `
+                    <span class="bg-sand-100 text-sage-900 text-[10px] font-bold px-3 py-1 rounded-full uppercase">Comunicado Oficial</span>
+                    <h3 class="font-serif text-2xl font-bold text-graphite mt-2">Novedades y Recomendaciones</h3>
+                    <p class="text-xs text-gray-600 leading-relaxed my-4">
+                        La Asociación de Hoteles y Moteles de Oaxaca invita a todos los turistas a reservar con anticipación utilizando canales directos de nuestros agremiados. Esto garantiza tarifas transparentes, flexibilidad de cancelación y atención personalizada.
+                    </p>
+                    <button onclick="closeModal()" class="w-full bg-sand-200 text-sage-900 font-bold text-xs py-3 rounded-full hover:bg-sand-300 transition-colors">
+                        Cerrar
+                    </button>
+                `;
+            }
+
+            modal.classList.remove('hidden');
+        }
+
+        function openHotelDetail(name, location, features, phone) {
+            const modal = document.getElementById('custom-modal');
+            const container = document.getElementById('modal-content');
+            container.innerHTML = `
+                <span class="bg-sand-100 text-sage-900 text-[10px] font-bold px-3 py-1 rounded-full uppercase">Hotel Certificado AHMO</span>
+                <h3 class="font-serif text-2xl font-bold text-graphite mt-2">${name}</h3>
+                <p class="text-xs text-gray-500 flex items-center gap-1 my-2">
+                    <i class="ph ph-map-pin text-sage-700"></i> ${location}
+                </p>
+                <div class="bg-sand-50 p-4 rounded-2xl border border-sand-200 my-4 space-y-2">
+                    <p class="text-xs font-semibold text-sage-900">Servicios e Instalaciones:</p>
+                    <p class="text-xs text-gray-600">${features}</p>
+                    <p class="text-xs font-semibold text-sage-900 pt-2">Teléfono Directo de Reservas:</p>
+                    <p class="text-xs text-sage-800 font-bold">${phone}</p>
+                </div>
+                <div class="flex gap-3">
+                    <button onclick="closeModal()" class="w-1/2 bg-gray-100 text-gray-700 font-semibold text-xs py-3 rounded-full hover:bg-gray-200 transition-colors">
+                        Volver
+                    </button>
+                    <button onclick="alert('Redirigiendo al sistema de reservas oficial del hotel...'); closeModal();" class="w-1/2 bg-sage-900 text-white font-semibold text-xs py-3 rounded-full hover:bg-sage-800 transition-colors">
+                        Reservar Directo
+                    </button>
+                </div>
+            `;
+            modal.classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('custom-modal').classList.add('hidden');
+        }
+
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            const container = document.getElementById('modal-content');
+            container.innerHTML = `
+                <div class="text-center py-6 space-y-3">
+                    <div class="w-16 h-16 bg-sage-100 text-sage-800 rounded-full flex items-center justify-center text-3xl mx-auto">
+                        <i class="ph ph-check-circle"></i>
+                    </div>
+                    <h3 class="font-serif text-2xl font-bold text-graphite">¡Solicitud Recibida!</h3>
+                    <p class="text-xs text-gray-600">Gracias por contactar a la Asociación de Hoteles y Moteles de Oaxaca. Un representante revisará la información a la brevedad.</p>
+                    <button onclick="closeModal()" class="bg-sage-900 text-white text-xs font-bold px-6 py-3 rounded-full mt-2">
+                        Aceptar
+                    </button>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>
